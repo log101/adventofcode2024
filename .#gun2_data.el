@@ -1,1 +1,0 @@
-furkan@furkan-lenovo.2511:1733148679
