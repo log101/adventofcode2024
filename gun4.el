@@ -1,7 +1,41 @@
-;; XMAS ve SAMX re-search-forward ve re-search-backward ile tespit edilebilir.
-;; Dikeyler transpose ile tespit edilebilir.
-;; Çaprazlar için metni çevirecek bir matematiksel bir fonksiyon bulabilirim.
-;; X S X       X S       S
-;; M A  M     M   A     A
-;; A M   A   A     M   M
-;; S X    S S       X X
+(add-to-list 'load-path "./emacs")
+(require 'eieio-compat)
+(load "pjb-transpose.el")
+
+(require 'cl-lib)
+
+(defun xmas5 ()
+  (interactive)
+  (let ((counter 0))
+    (while (re-search-forward "X" nil t)
+      (save-excursion
+	(ignore-errors
+	  (if (char-equal ?M (progn (next-logical-line)
+				    (char-after)))
+	      (if (char-equal ?A (progn (next-logical-line)
+					(goto-char (1+ (point)))
+					(char-after)))
+		  (if (char-equal ?S (progn (next-logical-line)
+					    (goto-char (1+ (point)))
+					    (char-after)))
+		      (cl-incf counter)))))))
+    (print counter)))
+
+(defun x-mas ()
+  (interactive)
+  (let ((counter 0))
+    (while (re-search-forward "M" nil t)
+      (save-excursion
+	(ignore-errors
+	  (if (char-equal ?S (progn (goto-char (1+ (point)))
+				    (char-after)))
+	      (if (char-equal ?A (progn (next-logical-line)
+					(goto-char (- (point) 1))
+					(char-after)))
+		  (if (char-equal ?M (progn (next-logical-line)
+					    (goto-char (- (point) 1))					    
+					    (char-after)))
+		    (if (char-equal ?S (progn (goto-char (+ (point) 2))
+					      (char-after)))
+		      (cl-incf counter))))))))
+    (print counter)))
