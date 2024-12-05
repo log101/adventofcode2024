@@ -2,3 +2,6 @@ emacs/
 sample.txt
 gun4_data_transposed.txt
 gun4_data.txt
+gun5/data.el
+gun5/data.txt
+gun5/original.txt
